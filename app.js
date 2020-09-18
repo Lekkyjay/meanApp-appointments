@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+require('dotenv').config()
 
 const config = require('./config');
 const MongoClient = require('mongodb').MongoClient;
@@ -18,7 +19,7 @@ const app = express();
 //From (client) we can get a reference to the database itself
 //From the db, we can get a reference to the collection
 //Save a reference to the collection in a app.local setter variable
-MongoClient.connect(`mongodb://${config.dbHost}`, {
+MongoClient.connect(process.env.MONGODB_URI || `mongodb://${config.dbHost}`, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
